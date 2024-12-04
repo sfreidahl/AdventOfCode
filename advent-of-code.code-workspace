@@ -3,7 +3,19 @@
     {
       "name": "Root",
       "path": ".",
-    }
+    },
+    {
+      "name": "2022",
+      "path": "2022",
+    },
+    {
+      "name": "2023",
+      "path": "2023",
+    },
+    {
+      "name": "2024",
+      "path": "2024",
+    },
   ],
   "extensions": {
     "recommendations": [
