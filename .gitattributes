@@ -1,0 +1,13 @@
+###############################
+# Git Line Endings            #
+###############################
+
+* text=auto eol=lf
+
+###############################
+# Other settings              #
+###############################
+
+.vscode/*.json linguist-language=jsonc
+.eslintrc.json linguist-language=jsonc
+tsconfig.*.json linguist-language=jsonc

@@ -1,0 +1,69 @@
+{
+  "folders": [
+    {
+      "name": "Root",
+      "path": ".",
+    }
+  ],
+  "extensions": {
+    "recommendations": [
+      "editorconfig.editorconfig",
+      "esbenp.prettier-vscode",
+      "streetsidesoftware.code-spell-checker",
+      "kreativ-software.csharpextensions",
+      "formulahendry.dotnet-test-explorer",
+      "ms-dotnettools.csharp",
+      "csharpier.csharpier-vscode",
+      "apollographql.vscode-apollo",
+    ],
+  },
+  "settings": {
+    "files.exclude": {
+      // Exclude the workspace folders from root workspace
+      "frontend": true,
+      "backend": true,
+      "infrastructure": true,
+    },
+    "cSpell.language": "en-US",
+    "cSpell.ignorePaths": [
+      "**/package-lock.json",
+      "**/node_modules/**",
+      "**/vscode-extension/**",
+      "**/.git/**",
+      ".vscode",
+      "typings",
+    ],
+    "cSpell.words": ["Bson", "HotRunner", "Plastification", "Validatable"],
+    "[json]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+    },
+    "[jsonc]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+    },
+    "[markdown]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+    },
+    "[csharp]": {
+      "editor.defaultFormatter": "csharpier.csharpier-vscode",
+      "editor.codeActionsOnSave": {
+        "source.fixAll.csharp": "explicit",
+      },
+    },
+    "[cshtml]": {
+      "editor.formatOnSave": false, // formatting cshtml files is broken https://github.com/dotnet/aspnetcore/issues/14271
+    },
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll": "explicit",
+      "source.organizeImports": "explicit",
+    },
+    "editor.rulers": [100],
+    "formatFiles.excludePattern": "**/node_modules/**,**/.vscode/**,**/dist/**,**/.chrome,**/*.cshtml,**/bin/**,**/obj/**",
+    "formatFiles.inheritWorkspaceExcludedFiles": false,
+    "omnisharp.useModernNet": true,
+    "omnisharp.enableEditorConfigSupport": true,
+    "omnisharp.enableRoslynAnalyzers": true,
+    "omnisharp.organizeImportsOnFormat": true,
+    "dotnet.defaultSolution": "AdventOfCode2024.sln",
+  },
+}

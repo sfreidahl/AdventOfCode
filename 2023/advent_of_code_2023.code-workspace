@@ -1,0 +1,81 @@
+{
+	"folders": [
+	  {
+		"name": "Root",
+		"path": "."
+	  },
+	  {
+		"name": "Src",
+		"path": "src"
+	  }
+	],
+	"extensions": {
+	  "recommendations": [
+		"EditorConfig.editorconfig",
+		"streetsidesoftware.code-spell-checker"
+	  ]
+	},
+	"settings": {
+	  "files.exclude": {
+		// Exclude the workspace folders from root workspace
+		"src": true,
+	  },
+	  "cSpell.language": "en-GB",
+	  "cSpell.ignorePaths": [
+		"**/package-lock.json",
+		"**/node_modules/**",
+		"**/vscode-extension/**",
+		"**/.git/**",
+		".vscode",
+		"typings"
+	  ],
+	  "cSpell.words": [
+		"Admin",
+		"Akita",
+		"Antd",
+		"Devtools",
+		"PAGINATOR",
+		"Versionable",
+		"Zorro",
+		"admins",
+		"fallback",
+		"msal",
+		"ngdevtools",
+		"odata",
+		"popconfirm",
+		"programmatically",
+		"submodule",
+		"unsubscribe"
+	  ],
+	  
+	  "[csharp]": {
+		"editor.codeActionsOnSave": {
+			"source.fixAll.csharp": "explicit",
+			"source.fixAll.stylelint": "never",
+			"source.fixAll.eslint": "never"
+		}
+	  },
+	  "editor.formatOnSave": true,
+	  "editor.codeActionsOnSave": {
+		"source.fixAll": "explicit",
+		"source.organizeImports": "explicit"
+	},
+	  "editor.rulers": [150],
+	  "html.format.indentHandlebars": true,
+	  "html.format.maxPreserveNewLines": 0,
+	  "formatFiles.excludePattern": "**/node_modules,**/.vscode,**/dist/**,**/.chrome,*.cshtml",
+	  "formatFiles.inheritWorkspaceExcludedFiles": false,
+	  "omnisharp.enableEditorConfigSupport": true,
+	  "omnisharp.enableRoslynAnalyzers": true,
+	  "omnisharp.organizeImportsOnFormat": true,
+	  "dotnet-test-explorer.testProjectPath": "backend-tests/SpecIT.Tests.csproj",
+	  // needed else eslint wont show errors in the HTML
+	  // https://github.com/microsoft/vscode-eslint/issues/922
+	  "eslint.validate": [
+		"typescript",
+		"html"
+	  ],
+	  "dotnet.defaultSolution": "src/AdventOfCode2023.sln"
+	}
+  }
+  
