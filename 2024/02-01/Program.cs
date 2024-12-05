@@ -1,9 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 Console.WriteLine("Hello, World!");
 
-var result = File.ReadLines("input.txt")
-    .Select(x => x.Split(" ").Select(int.Parse).ToList())
-    .Aggregate(0, (acc, src) => acc + src.IsSafe());
+var result = File.ReadLines("input.txt").Select(x => x.Split(" ").Select(int.Parse).ToList()).Aggregate(0, (acc, src) => acc + src.IsSafe());
 
 Console.WriteLine(result);
 

@@ -7,7 +7,6 @@ Console.WriteLine(board.XmasCount);
 
 public record XmasPuzzle(string[] Board)
 {
-
     public int XmasCount =>
         Board
             .SelectMany((x, row) => x.Select((letter, col) => (Row: row, Col: col, Letter: letter)))

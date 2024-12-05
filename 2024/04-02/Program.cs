@@ -9,7 +9,7 @@ public record XMasPuzzle(string[] Board)
 {
     public int XmasCount =>
         Board[1..^1]
-            .SelectMany((x, row) => x[1..^1].Select((letter, col) => (Row: row+1, Col: col+1, Letter: letter)))
+            .SelectMany((x, row) => x[1..^1].Select((letter, col) => (Row: row + 1, Col: col + 1, Letter: letter)))
             .Where(x => x.Letter == 'A')
             .Where(x => XMas(x.Row, x.Col))
             .Count();
