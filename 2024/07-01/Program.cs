@@ -1,18 +1,27 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using System.Collections;
 using System.Diagnostics;
-using System.Text.Json;
 
 Console.WriteLine("Hello, World!");
 
-var result = File.ReadAllLines("test-input.txt")
+var input = File.ReadAllLines("input.txt")
     .Select(x => x.Split(":"))
-    .Select(x => new Calibration(long.Parse(x[0]), x[1].Trim().Split(" ").Select(long.Parse).ToArray()))
-    .Where(x => x.IsValid())
-    .Select(x => x.Result)
-    .Sum();
+    .Select(x => new Calibration(long.Parse(x[0]), x[1].Trim().Split(" ").Select(long.Parse).ToArray()));
+Stopwatch sw = new Stopwatch();
+sw.Start();
+var result = input.Where(x => x.IsValid()).Select(x => x.Result).Sum();
+sw.Stop();
+
+Console.WriteLine($"Elapsed milliseconds: {sw.ElapsedMilliseconds}");
+
+sw.Restart();
+var resultRecursive = input.Where(x => x.IsValid()).Select(x => x.Result).Sum();
+sw.Stop();
+
+Console.WriteLine($"Elapsed milliseconds: {sw.ElapsedMilliseconds}");
 
 Console.WriteLine(result);
+Console.WriteLine(resultRecursive);
 
 record struct Calibration(long Result, long[] Values)
 {
@@ -23,7 +32,6 @@ record struct Calibration(long Result, long[] Values)
         for (int i = 0; i <= combinations - 1; i++)
         {
             var operators = new BitArray([i]).Cast<bool>().Select(x => x ? Operator.Multiply : Operator.Add).ToArray()[..(Values.Length - 1)];
-            // Console.WriteLine($"{Result} - {Values.Length} - {i} - {JsonSerializer.Serialize(operators)}");
             operatorsList.Add(operators);
         }
 
@@ -69,6 +77,34 @@ record struct Calibration(long Result, long[] Values)
             index++;
         }
         return Result == result;
+    }
+
+    public bool IsValidRecursive()
+    {
+        return CheckOperatorsRecursive(Values[0], Values[1..]);
+    }
+
+    private bool CheckOperatorsRecursive(long currentValue, long[] remainingValues)
+    {
+        if (currentValue == Result && remainingValues.Length == 0)
+        {
+            return true;
+        }
+        if (currentValue > Result)
+        {
+            return false;
+        }
+        if (remainingValues.Length == 0)
+        {
+            return false;
+        }
+        var nextValue = remainingValues[0];
+        var nextRemaining = remainingValues[1..];
+
+        var addResult = CheckOperatorsRecursive(currentValue + nextValue, nextRemaining);
+        var multiplyResult = CheckOperatorsRecursive(currentValue * nextValue, nextRemaining);
+
+        return addResult || multiplyResult;
     }
 }
 

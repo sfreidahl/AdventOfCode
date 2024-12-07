@@ -1,7 +1,5 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using System.Diagnostics;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 
 Console.WriteLine("Hello, World!");
 
@@ -45,10 +43,4 @@ record struct Calibration(long Result, long[] Values)
 
         return addResult || multiplyResult || concatValues;
     }
-}
-
-enum Operator
-{
-    Add,
-    Multiply,
 }
