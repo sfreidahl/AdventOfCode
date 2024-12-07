@@ -53,23 +53,14 @@ record struct Calibration(long Result, long[] Values)
         foreach (var op in operators)
         {
             var val = Values[index];
-            try
+
+            result = op switch
             {
-                checked
-                {
-                    result = op switch
-                    {
-                        Operator.Add => result + val,
-                        Operator.Multiply => result * val,
-                        _ => throw new UnreachableException(),
-                    };
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Overflow");
-                return false;
-            }
+                Operator.Add => result + val,
+                Operator.Multiply => result * val,
+                _ => throw new UnreachableException(),
+            };
+
             if (result > Result)
             {
                 return false;
