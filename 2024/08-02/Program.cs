@@ -2,17 +2,14 @@
 
 Console.WriteLine("Hello, World!");
 
-var input = File.ReadAllLines("input.txt")
+var antinodes = File.ReadAllLines("input.txt")
     .SelectMany((row, rowIndex) => row.Select((name, columnIndex) => new Antenna(name, new Location(rowIndex, columnIndex))))
     .Where(x => x.Name != '.')
     .GroupBy(x => x.Name, x => x)
-    .ToDictionary(x => x.Key, x => x.Select(x => x).ToList())
-    .SelectMany(x => x.Value.Select(x => x.Location).ToList().GetFrequencyOverlaps())
+    .SelectMany(x => x.Select(x => x.Location).ToList().GetFrequencyOverlaps())
     .ToHashSet();
 
-// Console.Read
-
-Console.WriteLine(input.Count);
+Console.WriteLine(antinodes.Count);
 
 public record struct Distance(int Row, int Column);
 
@@ -65,6 +62,6 @@ public static class ListExtensions
             }
             index++;
         }
-        return overlaps; //overlaps.Where(x => x.Row >= 0 && x.Column >= 0 && x.Row <= 49 && x.Column <= 49).ToHashSet();
+        return overlaps;
     }
 }

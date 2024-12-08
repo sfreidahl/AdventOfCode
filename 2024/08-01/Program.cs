@@ -3,15 +3,14 @@ using System.Security.Cryptography.X509Certificates;
 
 Console.WriteLine("Hello, World!");
 
-var input = File.ReadAllLines("input.txt")
+var antinodes = File.ReadAllLines("input.txt")
     .SelectMany((row, rowIndex) => row.Select((name, columnIndex) => new Antenna(name, new Location(rowIndex, columnIndex))))
     .Where(x => x.Name != '.')
     .GroupBy(x => x.Name, x => x)
-    .ToDictionary(x => x.Key, x => x.Select(x => x).ToList())
-    .SelectMany(x => x.Value.Select(x => x.Location).ToList().GetFrequencyOverlaps())
+    .SelectMany(x => x.Select(x => x.Location).ToList().GetFrequencyOverlaps())
     .ToHashSet();
 
-Console.WriteLine(input.Count);
+Console.WriteLine(antinodes.Count);
 
 public record struct Distance(int Row, int Column);
 
