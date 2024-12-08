@@ -44,6 +44,7 @@
       ".vscode",
       "typings"
     ],
+    "cSpell.words": ["antinode", "antinodes"],
     "[csharp]": {
       "editor.defaultFormatter": "csharpier.csharpier-vscode",
       "editor.codeActionsOnSave": {

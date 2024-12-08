@@ -1,6 +1,4 @@
 ﻿// See https://aka.ms/new-console-template for more information
-using System.Security.Cryptography.X509Certificates;
-
 Console.WriteLine("Hello, World!");
 
 var antinodes = File.ReadAllLines("input.txt")
@@ -21,9 +19,10 @@ public record struct Location(int Row, int Column)
         return new(location.Row - Row, location.Column - Column);
     }
 
-    public Location GetOverlap(Distance distance, int multiplier)
+    public Location GetAntinode(Location otherLocation)
     {
-        return new(Row + distance.Row * multiplier, Column + distance.Column * multiplier);
+        var distance = GetDistance(otherLocation);
+        return new(Row - distance.Row, Column - distance.Column);
     }
 }
 
@@ -33,18 +32,17 @@ public static class ListExtensions
 {
     public static HashSet<Location> GetFrequencyOverlaps(this List<Location> locations)
     {
-        HashSet<Location> overlaps = new HashSet<Location>();
+        HashSet<Location> antinodes = new HashSet<Location>();
         var index = 1;
         foreach (var location in locations)
         {
             foreach (var otherLocation in locations[index..])
             {
-                var distance = location.GetDistance(otherLocation);
-                overlaps.Add(location.GetOverlap(distance, -1));
-                overlaps.Add(otherLocation.GetOverlap(distance, 1));
+                antinodes.Add(location.GetAntinode(otherLocation));
+                antinodes.Add(otherLocation.GetAntinode(location));
             }
             index++;
         }
-        return overlaps.Where(x => x.Row >= 0 && x.Column >= 0 && x.Row <= 49 && x.Column <= 49).ToHashSet();
+        return antinodes.Where(x => x.Row >= 0 && x.Column >= 0 && x.Row <= 49 && x.Column <= 49).ToHashSet();
     }
 }

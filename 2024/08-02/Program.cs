@@ -20,21 +20,24 @@ public record struct Location(int Row, int Column)
         return new(location.Row - Row, location.Column - Column);
     }
 
-    public HashSet<Location> GetOverlaps(Distance distance, int multiplier)
+    public HashSet<Location> GetAntinodes(Location otherLocation)
     {
         var index = 1;
-        HashSet<Location> overlaps = new();
+        HashSet<Location> antinodes = [];
+        var distance = GetDistance(otherLocation);
         while (true)
         {
-            var overlap = new Location(Row + distance.Row * multiplier * index, Column + distance.Column * multiplier * index);
-            if (overlap.Row < 0 || overlap.Column < 0 || overlap.Row > 49 || overlap.Column > 49)
+            var antinode = new Location(Row - distance.Row * index, Column - distance.Column * index);
+            if (IsOutOfBounds(antinode))
             {
-                return overlaps;
+                return antinodes;
             }
-            overlaps.Add(overlap);
+            antinodes.Add(antinode);
             index++;
         }
     }
+
+    private static bool IsOutOfBounds(Location location) => location.Row < 0 || location.Column < 0 || location.Row > 49 || location.Column > 49;
 }
 
 public record struct Antenna(char Name, Location Location);
@@ -43,25 +46,29 @@ public static class ListExtensions
 {
     public static HashSet<Location> GetFrequencyOverlaps(this List<Location> locations)
     {
-        HashSet<Location> overlaps = new HashSet<Location>();
+        HashSet<Location> antinodes = [];
         var index = 1;
         foreach (var location in locations)
         {
-            overlaps.Add(location);
+            antinodes.Add(location);
             foreach (var otherLocation in locations[index..])
             {
-                var distance = location.GetDistance(otherLocation);
-                foreach (var overlap in location.GetOverlaps(distance, -1))
-                {
-                    overlaps.Add(overlap);
-                }
-                foreach (var overlap in otherLocation.GetOverlaps(distance, +1))
-                {
-                    overlaps.Add(overlap);
-                }
+                antinodes.AddRange(location.GetAntinodes(otherLocation));
+                antinodes.AddRange(otherLocation.GetAntinodes(location));
             }
             index++;
         }
-        return overlaps;
+        return antinodes;
+    }
+}
+
+public static class HasSetExtensions
+{
+    public static void AddRange<T>(this HashSet<T> set, IEnumerable<T> values)
+    {
+        foreach (var item in values)
+        {
+            set.Add(item);
+        }
     }
 }
