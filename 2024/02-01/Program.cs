@@ -54,5 +54,5 @@ enum Direction
 {
     Increasing,
     Decreasing,
-    Unsafe
+    Unsafe,
 }

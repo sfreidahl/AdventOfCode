@@ -28,9 +28,11 @@ List<Group> GetGroups(string input)
 
 record struct Group(int X, int Y)
 {
-    public Group(int[] ints) : this(ints[0], ints[1]) { }
+    public Group(int[] ints)
+        : this(ints[0], ints[1]) { }
 
-    public Group(string[] strings) : this(strings.Select(int.Parse).ToArray()) { }
+    public Group(string[] strings)
+        : this(strings.Select(int.Parse).ToArray()) { }
 
     public int Calc() => X * Y;
 }

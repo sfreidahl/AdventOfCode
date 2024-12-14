@@ -6,6 +6,7 @@ Console.WriteLine("Hello, World!");
 Maze maze = new Maze(File.ReadAllLines("input.txt"));
 
 Console.WriteLine(maze.MoveThroughMaze().Count);
+
 // var startPosition = GetStartPosition(map);
 
 class Maze
@@ -18,16 +19,19 @@ class Maze
         _map = map;
     }
 
-    public HashSet<Position> MoveThroughMaze(){
+    public HashSet<Position> MoveThroughMaze()
+    {
         var currentPosition = (MoveResult: MoveResult.Start, Position: GetStartPosition(), Direction: Direction.Up);
         HashSet<Position> visited = [currentPosition.Position];
-        do{
+        do
+        {
             currentPosition = Move(currentPosition.Position, currentPosition.Direction);
-            if(currentPosition.MoveResult == MoveResult.Exit){
+            if (currentPosition.MoveResult == MoveResult.Exit)
+            {
                 return visited;
             }
             visited.Add(currentPosition.Position);
-        }while(true);
+        } while (true);
     }
 
     private Position GetStartPosition()
@@ -46,45 +50,56 @@ class Maze
         throw new UnreachableException("");
     }
 
-    private (MoveResult MoveResult, Position Position, Direction Direction ) Move(Position position, Direction direction) {
+    private (MoveResult MoveResult, Position Position, Direction Direction) Move(Position position, Direction direction)
+    {
         var nextPos = position.GetNextPosition(direction);
-        if(IsExit(nextPos)){
+        if (IsExit(nextPos))
+        {
             return (MoveResult.Exit, nextPos, direction);
         }
-        if(IsWall(nextPos)){
+        if (IsWall(nextPos))
+        {
             var newDirection = Turn(direction);
             return Move(position, newDirection);
         }
         return (MoveResult.Moved, nextPos, direction);
     }
 
-    private bool IsWall(Position position){
+    private bool IsWall(Position position)
+    {
         return _map[position.Row][position.Column] == '#';
     }
 
-    private bool IsExit(Position position){
-        if(position.Row == -1) {
+    private bool IsExit(Position position)
+    {
+        if (position.Row == -1)
+        {
             return true;
         }
-        if(position.Column == -1) {
+        if (position.Column == -1)
+        {
             return true;
         }
-        if(position.Row == _map.Count()) {
+        if (position.Row == _map.Count())
+        {
             return true;
         }
-        if(position.Column == _map[0].Count()) {
+        if (position.Column == _map[0].Count())
+        {
             return true;
         }
         return false;
     }
 
-    private Direction Turn(Direction direction){
-        return direction switch {
+    private Direction Turn(Direction direction)
+    {
+        return direction switch
+        {
             Direction.Up => Direction.Right,
             Direction.Right => Direction.Down,
             Direction.Down => Direction.Left,
             Direction.Left => Direction.Up,
-            _ => throw new UnreachableException("invalid direction")
+            _ => throw new UnreachableException("invalid direction"),
         };
     }
 }
@@ -94,7 +109,7 @@ enum Direction
     Up,
     Right,
     Down,
-    Left
+    Left,
 }
 
 enum MoveResult
@@ -102,9 +117,8 @@ enum MoveResult
     Start,
     Moved,
     Wall,
-    Exit
+    Exit,
 }
-
 
 record struct Position(int Row, int Column)
 {
@@ -116,7 +130,7 @@ record struct Position(int Row, int Column)
             Direction.Right => this with { Column = Column + 1 },
             Direction.Down => this with { Row = Row + 1 },
             Direction.Left => this with { Column = Column - 1 },
-            _ => throw new UnreachableException("invalid direction")
+            _ => throw new UnreachableException("invalid direction"),
         };
     }
 }

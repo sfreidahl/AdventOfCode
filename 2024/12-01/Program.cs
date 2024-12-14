@@ -1,14 +1,17 @@
 ﻿// See https://aka.ms/new-console-template for more information
 Console.WriteLine("Hello, World!");
 
-var input = File.ReadLines("input.txt").SelectMany((row, rowIndex) => row.Select((c, columnIndex) => (c, new Coordinate(rowIndex, columnIndex)))).GroupBy(x => x.c, x => x.Item2);
+var input = File.ReadLines("input.txt")
+    .SelectMany((row, rowIndex) => row.Select((c, columnIndex) => (c, new Coordinate(rowIndex, columnIndex))))
+    .GroupBy(x => x.c, x => x.Item2);
 
 var result = 0;
 
 foreach (var group in input)
 {
     var coordinates = group.ToHashSet();
-    while(coordinates.Count > 0){
+    while (coordinates.Count > 0)
+    {
         HashSet<Coordinate> fields = [];
         var perimeter = coordinates.First().Traverse(coordinates, fields);
         result += perimeter * fields.Count;
@@ -19,13 +22,16 @@ foreach (var group in input)
 
 Console.WriteLine(result);
 
-
-record Coordinate(int Row, int Column){
-    public int Traverse(HashSet<Coordinate> coordinates, HashSet<Coordinate> field){
-        if(!coordinates.Contains(this)){
+record Coordinate(int Row, int Column)
+{
+    public int Traverse(HashSet<Coordinate> coordinates, HashSet<Coordinate> field)
+    {
+        if (!coordinates.Contains(this))
+        {
             return 1;
         }
-        if(field.Contains(this)){
+        if (field.Contains(this))
+        {
             return 0;
         }
         field.Add(this);

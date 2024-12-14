@@ -14,9 +14,11 @@ Console.WriteLine(games.Select(x => x.Cheapest()).Sum());
 
 record Button(long X, long Y)
 {
-    public Button((long X, long Y) ints) : this(ints.X, ints.Y) { }
+    public Button((long X, long Y) ints)
+        : this(ints.X, ints.Y) { }
 
-    public Button(string s) : this(ParseString(s)) { }
+    public Button(string s)
+        : this(ParseString(s)) { }
 
     public static (long X, long Y) ParseString(string s)
     {
@@ -27,9 +29,11 @@ record Button(long X, long Y)
 
 record Price(long X, long Y)
 {
-    public Price((long X, long Y) ints) : this(ints.X, ints.Y) { }
+    public Price((long X, long Y) ints)
+        : this(ints.X, ints.Y) { }
 
-    public Price(string s) : this(ParseString(s)) { }
+    public Price(string s)
+        : this(ParseString(s)) { }
 
     public static (long X, long Y) ParseString(string s)
     {

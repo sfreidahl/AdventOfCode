@@ -21,9 +21,11 @@ record Button(Distance Distance)
         return new(presses * Distance.X, presses * Distance.Y);
     }
 
-    public Button((int X, int Y) ints) : this(new Distance(ints.X, ints.Y)) { }
+    public Button((int X, int Y) ints)
+        : this(new Distance(ints.X, ints.Y)) { }
 
-    public Button(string s) : this(ParseString(s)) { }
+    public Button(string s)
+        : this(ParseString(s)) { }
 
     public static (int X, int Y) ParseString(string s)
     {
@@ -34,9 +36,11 @@ record Button(Distance Distance)
 
 record Price(Distance Distance)
 {
-    public Price((int X, int Y) ints) : this(new Distance(ints.X, ints.Y)) { }
+    public Price((int X, int Y) ints)
+        : this(new Distance(ints.X, ints.Y)) { }
 
-    public Price(string s) : this(ParseString(s)) { }
+    public Price(string s)
+        : this(ParseString(s)) { }
 
     public static (int X, int Y) ParseString(string s)
     {
