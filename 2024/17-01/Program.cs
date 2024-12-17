@@ -88,7 +88,7 @@ long ComboOperand(long operand)
 {
     return operand switch
     {
-        0 or 1 or 3 or 3 => operand,
+        0 or 1 or 2 or 3 => operand,
         4 => a,
         5 => b,
         6 => c,
