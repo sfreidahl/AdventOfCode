@@ -9,17 +9,21 @@ var result = patterns.Select(HandlePattern).Sum();
 
 Console.WriteLine(result);
 
-long HandlePattern(string pattern){
-    if(memo.ContainsKey(pattern)){
+long HandlePattern(string pattern)
+{
+    if (memo.ContainsKey(pattern))
+    {
         return memo[pattern];
     }
 
-    if(pattern == string.Empty){
+    if (pattern == string.Empty)
+    {
         return 1;
     }
 
     var newPatterns = FindNextTowels(pattern);
-    if(newPatterns.Count == 0){
+    if (newPatterns.Count == 0)
+    {
         memo[pattern] = 0;
         return 0;
     }
@@ -28,16 +32,17 @@ long HandlePattern(string pattern){
     return result;
 }
 
-List<string> FindNextTowels(string pattern){
-
+List<string> FindNextTowels(string pattern)
+{
     List<string> newPatterns = [];
 
-    foreach(var towel in towels){
-        if(pattern.StartsWith(towel)){
+    foreach (var towel in towels)
+    {
+        if (pattern.StartsWith(towel))
+        {
             newPatterns.Add(pattern[towel.Length..]);
         }
     }
 
     return newPatterns;
-
 }

@@ -2,7 +2,8 @@
 
 Console.WriteLine("Hello, World!");
 
-var locations = File.ReadAllLines("input.txt").SelectMany((row, rowIndex) => row.Select((c, columnIndex) => (c, new Coordinate(rowIndex, columnIndex))));
+var locations = File.ReadAllLines("input.txt")
+    .SelectMany((row, rowIndex) => row.Select((c, columnIndex) => (c, new Coordinate(rowIndex, columnIndex))));
 var start = locations.Where(x => x.c == 'S').First().Item2;
 var end = locations.Where(x => x.c == 'E').First().Item2;
 
@@ -14,10 +15,14 @@ var basePath = maze.GetPath();
 
 var result = 0;
 
-foreach(var coord in basePath){
-    foreach(var cheat in Maze.GetPossibleCheats(coord.Key)){
-        if(basePath.TryGetValue(cheat.Key, out var baseCost)){
-            if(baseCost - (coord.Value + cheat.Value) >= 100 ){
+foreach (var coord in basePath)
+{
+    foreach (var cheat in Maze.GetPossibleCheats(coord.Key))
+    {
+        if (basePath.TryGetValue(cheat.Key, out var baseCost))
+        {
+            if (baseCost - (coord.Value + cheat.Value) >= 100)
+            {
                 result++;
             }
         }
@@ -33,11 +38,12 @@ class Maze(HashSet<Coordinate> maze, Coordinate start, Coordinate end)
     private Coordinate _end = end;
     private Dictionary<Coordinate, int> _visited = [];
 
-    public static Dictionary<Coordinate, int> GetPossibleCheats(Coordinate coord){
+    public static Dictionary<Coordinate, int> GetPossibleCheats(Coordinate coord)
+    {
         Dictionary<Coordinate, int> newCoords = [];
 
-        for(int wallHackLength = 2; wallHackLength <= 20; wallHackLength++){
-
+        for (int wallHackLength = 2; wallHackLength <= 20; wallHackLength++)
+        {
             for (int i = 0; i <= wallHackLength; i++)
             {
                 newCoords[new Coordinate(coord.Row + i, coord.Column + (wallHackLength - i))] = wallHackLength;
@@ -45,7 +51,6 @@ class Maze(HashSet<Coordinate> maze, Coordinate start, Coordinate end)
                 newCoords[new Coordinate(coord.Row - i, coord.Column - (wallHackLength - i))] = wallHackLength;
                 newCoords[new Coordinate(coord.Row + i, coord.Column - (wallHackLength - i))] = wallHackLength;
             }
-
         }
 
         return newCoords;

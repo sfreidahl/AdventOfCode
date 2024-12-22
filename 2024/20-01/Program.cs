@@ -2,7 +2,8 @@
 
 Console.WriteLine("Hello, World!");
 
-var locations = File.ReadAllLines("input.txt").SelectMany((row, rowIndex) => row.Select((c, columnIndex) => (c, new Coordinate(rowIndex, columnIndex))));
+var locations = File.ReadAllLines("input.txt")
+    .SelectMany((row, rowIndex) => row.Select((c, columnIndex) => (c, new Coordinate(rowIndex, columnIndex))));
 var start = locations.Where(x => x.c == 'S').First().Item2;
 var end = locations.Where(x => x.c == 'E').First().Item2;
 
@@ -14,29 +15,33 @@ var width = walls.Max(x => x.Column);
 var maze = new Maze(walls, start, end);
 
 int baseTime = maze.GetQuickestPath();
+
 // Console.SetCursorPosition(0, height+1);
 
 Console.WriteLine($"basetime: {baseTime}");
 
-var wallsToTestRemove = walls.Where(x => x.Row > 0 && x.Row < height && x.Column > 0 && x.Column < width)
-    .Where(x => !walls.Contains(new(x.Row-1, x.Column)) && !walls.Contains(new(x.Row+1, x.Column))
-        || !walls.Contains(new(x.Row, x.Column-1)) && !walls.Contains(new(x.Row, x.Column+1)));
-
+var wallsToTestRemove = walls
+    .Where(x => x.Row > 0 && x.Row < height && x.Column > 0 && x.Column < width)
+    .Where(x =>
+        !walls.Contains(new(x.Row - 1, x.Column)) && !walls.Contains(new(x.Row + 1, x.Column))
+        || !walls.Contains(new(x.Row, x.Column - 1)) && !walls.Contains(new(x.Row, x.Column + 1))
+    );
 
 var result = 0;
-foreach(var wall in wallsToTestRemove){
-    HashSet<Coordinate> newWalls = [..walls];
+foreach (var wall in wallsToTestRemove)
+{
+    HashSet<Coordinate> newWalls = [.. walls];
     newWalls.Remove(wall);
     var newMaze = new Maze(newWalls, start, end);
     var time = newMaze.GetQuickestPath();
 
-    if(baseTime - time >= 100){
+    if (baseTime - time >= 100)
+    {
         result++;
     }
 }
 
 Console.WriteLine(result);
-
 
 class Maze(HashSet<Coordinate> maze, Coordinate start, Coordinate end)
 {
