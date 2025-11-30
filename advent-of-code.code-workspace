@@ -15,6 +15,10 @@
     {
       "name": "2024",
       "path": "2024"
+    },
+    {
+      "name": "2025",
+      "path": "2025"
     }
   ],
   "extensions": {
@@ -33,7 +37,8 @@
       // Exclude the workspace folders from root workspace
       "2022": true,
       "2023": true,
-      "2024": true
+      "2024": true,
+      "2025": true
     },
     "cSpell.language": "en-US",
     "cSpell.ignorePaths": [
@@ -62,7 +67,7 @@
     "omnisharp.useModernNet": true,
     "omnisharp.enableEditorConfigSupport": true,
     "omnisharp.enableRoslynAnalyzers": true,
-    "omnisharp.organizeImportsOnFormat": true,
-    "dotnet.defaultSolution": "AdventOfCode2024.sln"
+    // "dotnet.defaultSolution": "/2025/AdventOfCode2025.slnx",
+    "dotnet.formatting.organizeImportsOnFormat": true
   }
 }
