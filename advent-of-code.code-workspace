@@ -67,7 +67,7 @@
     "omnisharp.useModernNet": true,
     "omnisharp.enableEditorConfigSupport": true,
     "omnisharp.enableRoslynAnalyzers": true,
-    // "dotnet.defaultSolution": "/2025/AdventOfCode2025.slnx",
+    "dotnet.defaultSolution": "/2025/AdventOfCode2025.slnx",
     "dotnet.formatting.organizeImportsOnFormat": true
   }
 }

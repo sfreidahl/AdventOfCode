@@ -8,15 +8,18 @@ var result = File.ReadAllLines("input.txt")
         (Zeros: 0, Position: 50),
         (acc, src) =>
         {
-            var loc = mod(acc.Position + (src.Distance * src.Direction), 100);
-            Console.WriteLine(loc);
-            return (acc.Zeros + (loc == 0 ? 1 : 0), loc);
+            var extraZeroes = src.Distance / 100;
+            var actualDist = src.Distance % 100;
+            var locAbs = acc.Position + (actualDist * src.Direction);
+            var zero = (locAbs >= 100 || locAbs <= 0) && acc.Position != 0;
+            var loc = Mod(locAbs, 100);
+            return (acc.Zeros + (zero ? 1 : 0) + extraZeroes, loc);
         }
     );
 
 Console.WriteLine(result);
 
-int mod(int x, int m)
+static int Mod(int x, int m)
 {
     int r = x % m;
     return r < 0 ? r + m : r;
