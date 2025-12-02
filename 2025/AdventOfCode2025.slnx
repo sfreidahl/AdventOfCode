@@ -1,4 +1,6 @@
 <Solution>
   <Project Path="01-01/01-01.csproj" />
   <Project Path="01-02/01-02.csproj" />
+  <Project Path="02-01/02-01.csproj" />
+  <Project Path="02-02/02-02.csproj" />
 </Solution>
