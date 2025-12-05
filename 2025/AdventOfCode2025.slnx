@@ -7,4 +7,6 @@
   <Project Path="03-02/03-02.csproj" />
   <Project Path="04-01/04-01.csproj" />
   <Project Path="04-02/04-02.csproj" />
+  <Project Path="05-01/05-01.csproj" />
+  <Project Path="05-02/05-02.csproj" />
 </Solution>
