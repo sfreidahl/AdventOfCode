@@ -26,7 +26,10 @@ record Machine(int[] Joltage, List<Button> Buttons)
     {
         var ss = s.Split(" ");
 
-        return new(ss[^1].Replace("{", "").Replace("}", "").Split(",").Select(int.Parse).ToArray(), ss[1..^1].Select(Button.FromString).ToList());
+        return new(
+            ss[^1].Replace("{", "").Replace("}", "").Split(",").ToDictionary((x, index) => int.Parse).ToArray(),
+            ss[1..^1].Select(Button.FromString).OrderByDescending(x => x.Connections.Count()).ToList()
+        );
     }
 
     private Dictionary<string, long> cache = [];
@@ -34,48 +37,15 @@ record Machine(int[] Joltage, List<Button> Buttons)
 
     public long FewestPresses()
     {
-        Console.WriteLine();
-        return FewestPresses(new int[Joltage.Length], 0);
-    }
-
-    private long FewestPresses(int[] currentJoltage, long presses)
-    {
-        var joltageString = JoltageToString(currentJoltage);
-        if (
-            cache.TryGetValue(joltageString, out var cachedPresses) && (cachedPresses <= presses || cachedPresses == long.MaxValue)
-            || presses >= _fewestPresses
-        )
+        Dictionary<int, int> indexOrder = [];
+        for (int i = 0; i <= 9; i++)
         {
-            // Console.WriteLine("hit cache");
-            return cachedPresses;
+            indexOrder[i] = Joltage[i];
+            // var count = Buttons.Where(x => x.Connections.Contains(i)).Count();
+            // Console.WriteLine($"{i}: {count}");
         }
-        // Console.WriteLine($"cacheSize: {cache.Count}");
-        // Console.WriteLine(joltageString);
-        if (joltageString == _joltageAsString)
-        {
-            Console.WriteLine($"Hit {presses}");
-            _fewestPresses = presses;
-            cache[joltageString] = presses;
-            return presses;
-        }
-        for (int i = 0; i < Joltage.Length; i++)
-        {
-            if (currentJoltage[i] > Joltage[i])
-            {
-                cache[joltageString] = long.MaxValue;
-                return long.MaxValue;
-            }
-        }
-
-        long result = long.MaxValue;
-        foreach (var button in Buttons)
-        {
-            var newLights = ClickButton(currentJoltage, button);
-            var r = FewestPresses(newLights, presses + 1);
-            result = Math.Min(result, r);
-        }
-        cache[joltageString] = result;
-        return result;
+        Console.ReadLine();
+        return 0;
     }
 
     private static string JoltageToString(int[] joltage) => string.Join(",", joltage.Select(x => x.ToString()));
