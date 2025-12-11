@@ -19,4 +19,6 @@
   <Project Path="09-02/09-02.csproj" />
   <Project Path="10-01/10-01.csproj" />
   <Project Path="10-02/10-02.csproj" />
+  <Project Path="11-01/11-01.csproj" />
+  <Project Path="11-02/11-02.csproj" />
 </Solution>
